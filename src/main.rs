@@ -2,8 +2,8 @@ mod game;
 mod ping;
 
 use serenity::all::Interaction;
-use serenity::async_trait;
 use serenity::all::Ready;
+use serenity::async_trait;
 use serenity::builder::{CreateInteractionResponse, CreateInteractionResponseMessage};
 use serenity::prelude::*;
 
@@ -15,9 +15,7 @@ struct Handler {
 
 impl Handler {
     fn new() -> Self {
-        Self {
-            game: Game::new(),
-        }
+        Self { game: Game::new() }
     }
 }
 
@@ -25,21 +23,23 @@ impl Handler {
 impl EventHandler for Handler {
     async fn interaction_create(&self, ctx: Context, interaction: Interaction) {
         match interaction {
-            Interaction::Command(command) => {
-                match command.data.name.as_str() {
-                    "ping" => ping::command(ctx, command).await,
-                    "play" => self.game.command(ctx, command).await,
-                    _ => {
-                        command.create_response(&ctx.http, CreateInteractionResponse::Message(
-                            CreateInteractionResponseMessage::new()
-                                .ephemeral(true)
-                                .content("Invalid command!")
-                        ))
+            Interaction::Command(command) => match command.data.name.as_str() {
+                "ping" => ping::command(ctx, command).await,
+                "play" => self.game.command(ctx, command).await,
+                _ => {
+                    command
+                        .create_response(
+                            &ctx.http,
+                            CreateInteractionResponse::Message(
+                                CreateInteractionResponseMessage::new()
+                                    .ephemeral(true)
+                                    .content("Invalid command!"),
+                            ),
+                        )
                         .await
                         .expect("failed to create response");
-                    }
-                }               
-            }
+                }
+            },
 
             Interaction::Component(component) => {
                 self.game.component(ctx, component).await;
@@ -56,20 +56,23 @@ impl EventHandler for Handler {
         assert_eq!(guild.unavailable, true);
         let guild_id = guild.id;
 
-        guild_id.set_application_commands(&ctx.http, vec![
-            Game::register_play(),
-            Game::register_stop(),
-            ping::register(), 
-        ])
-        .await
-        .expect("failed to create application command");
+        guild_id
+            .set_application_commands(
+                &ctx.http,
+                vec![
+                    Game::register_play(),
+                    Game::register_stop(),
+                    ping::register(),
+                ],
+            )
+            .await
+            .expect("failed to create application command");
     }
 }
 
 #[tokio::main]
 async fn main() {
-    let intents = GatewayIntents::GUILD_MESSAGES
-        | GatewayIntents::MESSAGE_CONTENT;
+    let intents = GatewayIntents::GUILD_MESSAGES | GatewayIntents::MESSAGE_CONTENT;
 
     let mut client = Client::builder(include_str!("./../token.txt"), intents)
         .event_handler(Handler::new())
