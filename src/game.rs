@@ -588,3 +588,89 @@ fn draw_select_outline(canvas: &mut ImageBuffer<Rgb<u8>, Vec<u8>>, cell: usize) 
         _ => unreachable!(),
     }
 }
+
+fn generate_disabled_action_row() -> CreateActionRow {
+    let left = CreateButton::new("left")
+        .label("←")
+        .style(ButtonStyle::Secondary)
+        .disabled(true);
+    
+    let down = CreateButton::new("down")
+        .label("↓")
+        .style(ButtonStyle::Secondary)
+        .disabled(true);
+
+    let up = CreateButton::new("up")
+        .label("↑")
+        .style(ButtonStyle::Secondary)
+        .disabled(true);
+
+    let right = CreateButton::new("right")
+        .label("→")
+        .style(ButtonStyle::Secondary)
+        .disabled(true);
+
+    let send = CreateButton::new("send")
+        .label("Send")
+        .style(ButtonStyle::Primary)
+        .disabled(true);
+
+    let action_row = CreateActionRow::Buttons(vec![
+        left,
+        down,
+        up,
+        right,
+        send,
+    ]);
+
+    action_row
+}
+
+fn generate_game_action_row(send_disabled: bool, cursor_position: usize) -> CreateActionRow {
+    let mut left = CreateButton::new("left")
+        .label("←")
+        .style(ButtonStyle::Secondary);
+    
+    if [0, 3, 6].contains(&cursor_position) {
+        left = left.disabled(true);
+    }
+    
+    let mut down = CreateButton::new("down")
+        .label("↓")
+        .style(ButtonStyle::Secondary); 
+
+    if cursor_position >= 6 {
+        down = down.disabled(true);
+    }
+
+    let mut up = CreateButton::new("up")
+        .label("↑")
+        .style(ButtonStyle::Secondary);
+
+    if cursor_position <= 2 {
+        up = up.disabled(true);
+    }
+
+    let mut right = CreateButton::new("right")
+        .label("→")
+        .style(ButtonStyle::Secondary); 
+
+    if [2, 5, 8].contains(&cursor_position) {
+        right = right.disabled(true);
+    }
+
+    let send = CreateButton::new("send")
+        .label("Send")
+        .style(ButtonStyle::Primary)
+        .disabled(send_disabled);
+
+    let action_row = CreateActionRow::Buttons(vec![
+        left,
+        down,
+        up,
+        right,
+        send,
+    ]);
+
+    action_row
+}
