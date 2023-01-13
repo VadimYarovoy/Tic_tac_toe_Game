@@ -1,4 +1,5 @@
 mod ping;
+mod game;
 
 use serenity::all::Interaction;
 use serenity::all::Ready;
