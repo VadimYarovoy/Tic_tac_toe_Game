@@ -7,6 +7,20 @@ use serenity::all::CreateCommand;
 use serenity::all::{CommandInteraction, Message, UserId};
 use tokio::sync::Mutex;
 
+const CELLS: [(i32, i32); 9] = [
+    (0, 0),
+    (100, 0),
+    (200, 0),
+
+    (0, 100),
+    (100, 100),
+    (200, 100),
+
+    (0, 200),
+    (100, 200),
+    (200, 200),
+];
+
 #[derive(Default)]
 pub struct Game {
     x_image: ImageBuffer<Rgb<u8>, Vec<u8>>,
@@ -405,4 +419,172 @@ async fn update_game_message(http: &Http, interaction: &ComponentInteraction, se
     )
     .await
     .unwrap();
+}
+
+fn draw_select_outline(canvas: &mut ImageBuffer<Rgb<u8>, Vec<u8>>, cell: usize) {
+    match cell {
+        0 => {
+            draw_filled_rect_mut(
+                canvas,
+                Rect::at(CELLS[cell].0 + 98, CELLS[cell].1).of_size(4, 102), 
+                RED,
+            );
+    
+            draw_filled_rect_mut(
+                canvas,
+                Rect::at(CELLS[cell].0, CELLS[cell].1 + 98).of_size(98, 4), 
+                RED,
+            );
+        }
+
+        1 => {
+            draw_filled_rect_mut(
+                canvas,
+                Rect::at(CELLS[cell].0 + 98, CELLS[cell].1).of_size(4, 102), 
+                RED,
+            );
+    
+            draw_filled_rect_mut(
+                canvas,
+                Rect::at(CELLS[cell].0 - 2, CELLS[cell].1 + 98).of_size(100, 4), 
+                RED,
+            );
+
+            draw_filled_rect_mut(
+                canvas,
+                Rect::at(CELLS[cell].0 - 2, CELLS[cell].1).of_size(4, 98), 
+                RED,
+            );
+        }
+
+        2 => {
+            draw_filled_rect_mut(
+                canvas,
+                Rect::at(CELLS[cell].0 - 2, CELLS[cell].1 + 98).of_size(102, 4), 
+                RED,
+            );
+
+            draw_filled_rect_mut(
+                canvas,
+                Rect::at(CELLS[cell].0 - 2, CELLS[cell].1).of_size(4, 98), 
+                RED,
+            );
+        }
+
+        3 => {
+            draw_filled_rect_mut(
+                canvas,
+                Rect::at(CELLS[cell].0, CELLS[cell].1 - 2).of_size(102, 4), 
+                RED,
+            );
+
+            draw_filled_rect_mut(
+                canvas,
+                Rect::at(CELLS[cell].0 + 98, CELLS[cell].1 + 2).of_size(4, 100), 
+                RED,
+            );
+    
+            draw_filled_rect_mut(
+                canvas,
+                Rect::at(CELLS[cell].0, CELLS[cell].1 + 98).of_size(98, 4), 
+                RED,
+            );
+        }
+
+        4 => {
+            draw_filled_rect_mut(
+                canvas,
+                Rect::at(CELLS[cell].0 - 2, CELLS[cell].1 - 2).of_size(104, 4), 
+                RED,
+            );
+
+            draw_filled_rect_mut(
+                canvas,
+                Rect::at(CELLS[cell].0 + 98, CELLS[cell].1 + 2).of_size(4, 100), 
+                RED,
+            );
+    
+            draw_filled_rect_mut(
+                canvas,
+                Rect::at(CELLS[cell].0 - 2, CELLS[cell].1 + 98).of_size(100, 4), 
+                RED,
+            );
+
+            draw_filled_rect_mut(
+                canvas,
+                Rect::at(CELLS[cell].0 - 2, CELLS[cell].1 + 2).of_size(4, 96), 
+                RED,
+            );
+        }
+
+        5 => {
+            draw_filled_rect_mut(
+                canvas,
+                Rect::at(CELLS[cell].0 - 2, CELLS[cell].1 - 2).of_size(102, 4), 
+                RED,
+            );
+
+            draw_filled_rect_mut(
+                canvas,
+                Rect::at(CELLS[cell].0 - 2, CELLS[cell].1 + 98).of_size(102, 4), 
+                RED,
+            );
+
+            draw_filled_rect_mut(
+                canvas,
+                Rect::at(CELLS[cell].0 - 2, CELLS[cell].1 + 2).of_size(4, 96), 
+                RED,
+            );
+        }
+
+        6 => {
+            draw_filled_rect_mut(
+                canvas,
+                Rect::at(CELLS[cell].0, CELLS[cell].1 - 2).of_size(102, 4), 
+                RED,
+            );
+
+            draw_filled_rect_mut(
+                canvas,
+                Rect::at(CELLS[cell].0 + 98, CELLS[cell].1 + 2).of_size(4, 98), 
+                RED,
+            );
+        }
+
+        7 => {
+            draw_filled_rect_mut(
+                canvas,
+                Rect::at(CELLS[cell].0 - 2, CELLS[cell].1 - 2).of_size(104, 4), 
+                RED,
+            );
+
+            draw_filled_rect_mut(
+                canvas,
+                Rect::at(CELLS[cell].0 + 98, CELLS[cell].1 + 2).of_size(4, 98), 
+                RED,
+            );
+    
+            draw_filled_rect_mut(
+                canvas,
+                Rect::at(CELLS[cell].0 - 2, CELLS[cell].1 + 2).of_size(4, 98), 
+                RED,
+            );
+        }
+
+        8 => {
+            draw_filled_rect_mut(
+                canvas,
+                Rect::at(CELLS[cell].0 - 2, CELLS[cell].1 - 2).of_size(102, 4), 
+                RED,
+            );
+
+            draw_filled_rect_mut(
+                canvas,
+                Rect::at(CELLS[cell].0 - 2, CELLS[cell].1 + 2).of_size(4, 98), 
+                RED,
+            );
+        }
+
+        _ => unreachable!(),
+    }
 }
