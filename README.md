@@ -1,19 +1,18 @@
-# Tic_tac_toe_Game
-Участники проекта
-Группа 3530904/00104
-- Яровой Вадим
-- Дорошин Данил
+# TIC_TAC_TOE discord bot
+## Участники проекта
+- Группа 3530904/00104
+1. [Яровой Вадим](https://github.com/VadimYarovoy)
+2. [Дорошин Данил](https://github.com/ddddanil)
 
-используемые инструменты:
+## используемые инструменты:
 - Rust 1.65
 - Cargo 
 - serenity - Rust framwork
 
-Пример работы:
-партия:
+## Пример работы:
 ![image](https://user-images.githubusercontent.com/89383982/213172306-2a6793c5-6993-4435-88fb-90e5cf7323d9.png)
 
-Инструкция по сборке:
+## Инструкция по сборке:
 - установить rust [Rust](https://www.rust-lang.org/ru/tools/install)
 - создать бота на [сайте](https://discord.com/developers/applications)
 - во вкладке OAuth2/URLgenerator в первом меню выбрать `bot` 
@@ -31,7 +30,7 @@ git clone git@github.com:VadimYarovoy/Tic_tac_toe_Game.git
  ```
   может потребоваться некоторое время на скачивавние всех зависимостей
 
-Поддерживаемые команды:
+## Поддерживаемые команды:
 |описание| команда|
 |-|-|
 |проверка того, что бот запустился |`/ping!`|
