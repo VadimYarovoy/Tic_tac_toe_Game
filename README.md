@@ -8,6 +8,7 @@
 - [Rust](https://doc.rust-lang.ru/book/) 1.66.1
 - [Cargo](https://doc.rust-lang.org/cargo/) 1.66.1
 - [serenity](https://docs.rs/serenity/latest/serenity/) - Rust library for the Discord API
+- [image](https://docs.rs/image/latest/image/) - provides native rust implementations of image encoding and decoding as well as some basic image manipulation functions
 
 ## Пример работы:
 ![image](https://user-images.githubusercontent.com/89383982/213172306-2a6793c5-6993-4435-88fb-90e5cf7323d9.png)
