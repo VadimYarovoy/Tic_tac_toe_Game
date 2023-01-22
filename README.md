@@ -5,9 +5,9 @@
 2. [Дорошин Данил](https://github.com/ddddanil)
 
 ## используемые инструменты:
-- Rust 1.65
-- Cargo 
-- serenity - Rust framwork
+- [Rust](https://doc.rust-lang.ru/book/) 1.66.1
+- [Cargo](https://doc.rust-lang.org/cargo/) 1.66.1
+- [serenity](https://docs.rs/serenity/latest/serenity/) - Rust library for the Discord API
 
 ## Пример работы:
 ![image](https://user-images.githubusercontent.com/89383982/213172306-2a6793c5-6993-4435-88fb-90e5cf7323d9.png)
