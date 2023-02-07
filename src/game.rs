@@ -471,7 +471,7 @@ impl Game {
                                 CreateEmbed::new()
                                     .title(format!(
                                         "The game between {} and {} has finished!",
-                                        session.player.2, session.player2.2,
+                                        session.player.2, session.player.2,
                                     ))
                                     .description(format!("💥 {} has won! 💥", session.player.2))
                                     .attachment("canvas.png"),
